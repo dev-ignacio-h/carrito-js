@@ -8,8 +8,16 @@ let articulosCarrito = [];
 cargarEventListeners();
 
 function cargarEventListeners() {
-    listaCursos.addEventListener('click', agregarCurso); // al presionar "agregar al carrito"
-    carrito.addEventListener('click', eliminarCurso) // elimina cursos del carrito
+    // al presionar agregar al carrito
+    listaCursos.addEventListener('click', agregarCurso);
+    // elimina cursos del carrito 
+    carrito.addEventListener('click', eliminarCurso)
+        // vaciar carrito
+    vaciarCarritoBtn.addEventListener('click', () => {
+        articulosCarrito.splice(0);
+        limpiarHTML();
+        console.log(articulosCarrito);
+    })
 }
 
 // funciones
