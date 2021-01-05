@@ -28,8 +28,6 @@ function eliminarCurso(e) {
         // elimina del arreglo de articulosCarrito por el data-id
         articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId);
         carritoHTML(); // iterar sobre el carrito y mostrar su HTML
-        console.log(articulosCarrito);
-
     }
 }
 
