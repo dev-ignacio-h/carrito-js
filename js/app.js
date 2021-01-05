@@ -9,6 +9,7 @@ cargarEventListeners();
 
 function cargarEventListeners() {
     listaCursos.addEventListener('click', agregarCurso); // al presionar "agregar al carrito"
+    carrito.addEventListener('click', eliminarCurso) // elimina cursos del carrito
 }
 
 // funciones
@@ -20,19 +21,37 @@ function agregarCurso(e) {
     }
 }
 
+// elimina un curso del carrito
+function eliminarCurso(e) {
+    if (e.target.classList.contains('borrar-curso')) {
+        const cursoId = e.target.getAttribute('data-id');
+        // elimina del arreglo de articulosCarrito por el data-id
+        articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId);
+        carritoHTML(); // iterar sobre el carrito y mostrar su HTML
+        console.log(articulosCarrito);
+
+    }
+}
+
 // leer contenido del html donde se dio click y extraer la info del curso
 function leerDatosCurso(curso) {
     // crear objeto con contenido de curso actual
     const infoCurso = {
-            imagen: curso.querySelector('img').src,
-            titulo: curso.querySelector('h4').textContent,
-            precio: curso.querySelector('.precio span').textContent,
-            id: curso.querySelector('a').getAttribute('data-id'),
-            cantidad: 1
-        }
-        // agregar elementos al arreglo de carrito
-    articulosCarrito = [...articulosCarrito, infoCurso]
-    console.log(articulosCarrito);
+        imagen: curso.querySelector('img').src,
+        titulo: curso.querySelector('h4').textContent,
+        precio: curso.querySelector('.precio span').textContent,
+        id: curso.querySelector('a').getAttribute('data-id'),
+        cantidad: 1
+    }
+
+    const existe = articulosCarrito.some(curso => curso.id === infoCurso.id); // revisar si un elemento ya existe en el carrito
+    if (existe) articulosCarrito.forEach(curso => {
+        if (curso.id === infoCurso.id) curso.cantidad++; // se actualiza la cantidad
+    })
+    else articulosCarrito = [...articulosCarrito, infoCurso] // se agrega el nuevo curso
+
+
+    // console.log(articulosCarrito);
     carritoHTML();
 }
 
